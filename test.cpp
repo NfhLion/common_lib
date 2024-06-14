@@ -57,3 +57,56 @@ vector<Cell> getFlaggedCells()
 	}
 	return flaggedCells;
 }
+
+
+// switch
+class Money{};
+enum EmployeeType
+{
+	HOURLY, SALARIED
+};
+class Employee{
+public:
+	EmployeeType type;
+};
+Money calculatePay(Employee e)
+{
+	switch (e.type) {
+		case HOURLY :
+			return calculateHourlyPay(e);
+		case SALARIED :
+			return calculateSalariedPay(e);
+		default:
+			return invaliedEmployeeType(e);
+	}
+	return {};
+}
+
+class Employee{
+public:
+	bool isPayday();
+	Money calculatePay();
+	void deliverPay(Money pay);
+
+	EmployeeType type;
+};
+
+class HourlyEmployee : public Employee{};
+class SalariedEmployee : public Employee{};
+
+class EmployeeFactory 
+{
+public:
+	static Employee* makeEmployee(EmployeeType t)
+	{
+		switch(t) {
+			case HOURLY :
+			return new HourlyEmployee();
+		case SALARIED :
+			return new SalariedEmployee();
+		default:
+			return nullptr;
+		}
+		return nullptr;
+	}
+};
